@@ -1,4 +1,4 @@
-export type User = {
+export type UserTable = {
   id: string;
   name: string;
   second_name: string;
@@ -7,7 +7,7 @@ export type User = {
   image: string;
 };
 
-export type Reports = {
+export type ReportsTable = {
   id: string;
   topic: string;
   hd_number: string;
@@ -19,11 +19,11 @@ export type Reports = {
   images: string;
 };
 
-export type Categories = {
+export type CategoriesTable = {
   name: string;
 };
 
-export type Bugs = {
+export type BugsTable = {
   id: string;
   topic: string;
   text: string;
