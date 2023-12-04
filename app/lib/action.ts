@@ -6,14 +6,16 @@ import { z } from "zod";
 const FormSchema = z.object({
   id: z.string(),
   topic: z.string({
-    invalid_type_error: "Proszę napisz temat zgłoszenai",
+    invalid_type_error: "Proszę napisz temat zgłoszenia",
   }),
   hd_number: z.string(),
   create_date: z.string(),
-  category: z.enum(["!!do wypełnienia!!", ""], {
+  category: z.enum(["sprzet", "gardens", "symos", "soda"], {
     invalid_type_error: "Proszę wybierz kategorię tego zgłoszenia",
   }),
-  text: z.string(),
+  text: z.string({
+    invalid_type_error: "Proszę napisz treść zgłoszenia",
+  }),
   user_id: z.string(),
   status: z.enum(["solved", "unsolved"], {
     invalid_type_error: "Proszę wybierz status zgłoszenia",
