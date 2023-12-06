@@ -70,6 +70,18 @@ export async function getUser(email: string) {
 export async function fetchClosedReports() {
   try {
     const data =
+      await sql<ReportsTable>`SELECT * FROM reports WHERE status = 'resolved'`;
+    const reports = data.rows;
+    return reports;
+  } catch (err) {
+    console.error("Database error: ", err);
+    throw new Error("Failed to fetch closed reports");
+  }
+}
+
+export async function fetchOpenedReports() {
+  try {
+    const data =
       await sql<ReportsTable>`SELECT * FROM reports WHERE status = 'unresolved'`;
     const reports = data.rows;
     return reports;
