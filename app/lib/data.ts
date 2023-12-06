@@ -1,4 +1,4 @@
-import { BugsTable, CategoriesTable, ReportsTable } from "./types";
+import { BugsTable, CategoriesTable, ReportsTable, UserTable } from "./types";
 import { sql } from "@vercel/postgres";
 
 export async function fetchAllReports() {
@@ -19,6 +19,7 @@ export async function fetchAllReports() {
     return reports;
   } catch (err) {
     console.error("Database error: ", err);
+    throw new Error("Failed to fetch all reports");
   }
 }
 
@@ -37,6 +38,7 @@ export default async function fetchAllBugs() {
     return bugs;
   } catch (err) {
     console.error("Database error: ", err);
+    throw new Error("Failed to fetch bugs.");
   }
 }
 
@@ -52,5 +54,15 @@ export async function fetchCategories() {
   } catch (err) {
     console.error("Database error: ", err);
     throw new Error("Failed to fetch categories");
+  }
+}
+
+export async function getUser(email: string) {
+  try {
+    const user = await sql`SELECT * from user_reports WHERE email=${email}`;
+    return user.rows[0] as UserTable;
+  } catch (err) {
+    console.error("Database error, failed to fetch user: ", err);
+    throw new Error("Failed to fetch user");
   }
 }
