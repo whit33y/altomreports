@@ -29,4 +29,5 @@ export type BugsTable = {
   text: string;
   create_date: string;
   images: string;
+  userId: string;
 };

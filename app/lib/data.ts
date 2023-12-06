@@ -1,4 +1,4 @@
-import { CategoriesTable, ReportsTable } from "./types";
+import { BugsTable, CategoriesTable, ReportsTable } from "./types";
 import { sql } from "@vercel/postgres";
 
 export async function fetchAllReports() {
@@ -17,6 +17,24 @@ export async function fetchAllReports() {
         `;
     const reports = data.rows;
     return reports;
+  } catch (err) {
+    console.error("Database error: ", err);
+  }
+}
+
+export default async function fetchAllBugs() {
+  try {
+    const data = await sql<BugsTable>`
+        SELECT
+        id,
+        topic,
+        create_date,
+        text,
+        user_id,
+        images FROM bugs
+        `;
+    const bugs = data.rows;
+    return bugs;
   } catch (err) {
     console.error("Database error: ", err);
   }
