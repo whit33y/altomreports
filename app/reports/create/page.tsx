@@ -1,9 +1,11 @@
 import Form from "@/app/ui/reports/create-form";
+import { fetchCategories } from "@/app/lib/data";
 
-export default function Page() {
+export default async function Page() {
+  const categories = await fetchCategories();
   return (
     <div>
-      <Form />
+      <Form categories={categories} />
     </div>
   );
 }

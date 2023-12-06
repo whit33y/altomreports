@@ -1,4 +1,10 @@
-export default function Form() {
+import { CategoriesTable } from "@/app/lib/types";
+
+export default function Form({
+  categories,
+}: {
+  categories: CategoriesTable[];
+}) {
   return (
     <form>
       <label>Temat</label>
@@ -9,10 +15,14 @@ export default function Form() {
       <input></input>
       <label>Category</label>
       <select>
-        <option></option>
-        <option></option>
-        <option></option>
-        <option></option>
+        <option value="" disabled>
+          Wybierz kategorie
+        </option>
+        {categories.map((category) => (
+          <option key={category.name} value={category.name}>
+            {category.name}
+          </option>
+        ))}
       </select>
       <fieldset>
         <legend>Zmień status</legend>
