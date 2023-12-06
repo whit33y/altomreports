@@ -7,14 +7,28 @@ export default function Form({
 }) {
   return (
     <form>
-      <label>Temat</label>
-      <input type="text"></input>
-      <label>HD Number</label>
-      <input></input>
-      <label>Opis</label>
-      <input></input>
-      <label>Category</label>
-      <select>
+      <label htmlFor="topic">Temat</label>
+      <input
+        type="text"
+        id="topic"
+        name="topic"
+        placeholder="Podaj temat"
+      ></input>
+      <label htmlFor="hd_number">HD Number</label>
+      <input
+        type="text"
+        id="hd_number"
+        name="hd_number"
+        placeholder="Podacz oczko (jezeli masz)"
+      ></input>
+      <label htmlFor="text">Opis</label>
+      <textarea
+        id="text"
+        name="text"
+        placeholder="Opisz dokładnie Twój problem"
+      ></textarea>
+      <label htmlFor="category">Kategoria</label>
+      <select id="category" name="category">
         <option value="" disabled>
           Wybierz kategorie
         </option>
@@ -26,10 +40,10 @@ export default function Form({
       </select>
       <fieldset>
         <legend>Zmień status</legend>
-        <label>Otwarty</label>
-        <input></input>
-        <label>Zamknięty</label>
-        <input></input>
+        <label htmlFor="opened">Otwarty</label>
+        <input type="radio" id="opened" name="opened"></input>
+        <label htmlFor="closed">Zamknięty</label>
+        <input type="radio" id="closed" name="closed"></input>
       </fieldset>
       <button>Wyślij</button>
     </form>
