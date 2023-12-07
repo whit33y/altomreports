@@ -90,3 +90,13 @@ export async function fetchOpenedReports() {
     throw new Error("Failed to fetch closed reports");
   }
 }
+
+export async function getClosedReports(id: string) {
+  try {
+    const data =
+      await sql<ReportsTable>`SELECT * FROM reports WHERE user_id = ${id} and status = 'resolved'`;
+  } catch (err) {
+    console.error("Database error:", err);
+    throw new Error("Failed to get closed reports");
+  }
+}
