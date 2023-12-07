@@ -100,3 +100,13 @@ export async function getClosedReports(id: string) {
     throw new Error("Failed to get closed reports");
   }
 }
+
+export async function getOpenedReports(id: string) {
+  try {
+    const data =
+      await sql<ReportsTable>`SELECT * FROM reports WHERE user_id = ${id} and status = 'unresolved'`;
+  } catch (err) {
+    console.error("Database error:", err);
+    throw new Error("Failed to get opened reports");
+  }
+}
