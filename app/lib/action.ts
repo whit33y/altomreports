@@ -16,15 +16,53 @@ const FormSchema = z.object({
   text: z.string({
     invalid_type_error: "Proszę napisz treść zgłoszenia",
   }),
-  user_id: z.string(),
-  status: z.enum(["solved", "unsolved"], {
+  status: z.enum(["resolved", "unresolved"], {
     invalid_type_error: "Proszę wybierz status zgłoszenia",
   }),
-  images: z.string(),
+  // images: z.string(),
 });
 
-export async function createReport(formData: FormData) {
-  //   const { topic } = formData.get("topic");
+const CreateReport = FormSchema.omit({ id: true, create_date: true });
+
+export type State = {
+  errors?: {
+    topic?: string[];
+    category?: string[];
+    text?: string[];
+    status?: string[];
+  };
+  message?: string | null;
+};
+
+export async function createReport(prevState: State, formData: FormData) {
+  const validatedFields = CreateReport.safeParse({
+    topic: formData.get("topic"),
+    hd_number: formData.get("hd_number"),
+    category: formData.get("category"),
+    text: formData.get("text"),
+    status: formData.get("status"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Report.",
+    };
+  }
+
+  const { topic, category, text, status, hd_number } = validatedFields.data;
+  const date = new Date().toISOString().split("T")[0];
+  const user_id = "1ac6de56-355e-41df-83dd-c98015c50965";
+  // const id =  !!TUTAJ DODAĆ POBIERANIE ID OBECNIE ZALOGOWANEGO USER'A
+  try {
+    await sql`INSERT INTO reports (topic, hd_number, create_date, category, text, user_id, status)
+    VALUES(${topic}, ${hd_number}, ${date}, ${category}, ${text}, ${text}, ${user_id})`;
+  } catch (err) {
+    return {
+      message: "Failed to create report.",
+    };
+  }
+  // const { topic } = formData.get("topic");
   //   try {
   //     await sql`
   //         INSERT INTO reports (topic)
