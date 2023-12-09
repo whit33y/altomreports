@@ -1,6 +1,8 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -73,6 +75,8 @@ export async function createReport(prevState: State, formData: FormData) {
   //       message: "Database error: failed to create Report",
   //     };
   //   }
+  revalidatePath("/reports");
+  redirect("/reports");
 }
 export async function updateReport() {}
 export async function deleteReport() {}

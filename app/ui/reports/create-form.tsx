@@ -1,12 +1,17 @@
+"use client";
+import { createReport } from "@/app/lib/action";
 import { CategoriesTable } from "@/app/lib/types";
+import { useFormState } from "react-dom";
 
 export default function Form({
   categories,
 }: {
   categories: CategoriesTable[];
 }) {
+  const initialState = { message: null, errors: {} };
+  const [state, dispatch] = useFormState(createReport, initialState);
   return (
-    <form>
+    <form action={dispatch}>
       <label htmlFor="topic">Temat</label>
       <input
         type="text"
@@ -45,7 +50,7 @@ export default function Form({
         <label htmlFor="closed">Zamknięty</label>
         <input type="radio" id="closed" name="closed"></input>
       </fieldset>
-      <button>Wyślij</button>
+      <button type="submit">Wyślij</button>
     </form>
   );
 }
