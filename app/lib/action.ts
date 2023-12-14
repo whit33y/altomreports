@@ -21,6 +21,7 @@ const FormSchema = z.object({
   status: z.enum(["resolved", "unresolved"], {
     invalid_type_error: "Proszę wybierz status zgłoszenia",
   }),
+  user_id: z.string(),
   // images: z.string(),
 });
 
@@ -58,7 +59,7 @@ export async function createReport(prevState: State, formData: FormData) {
   // const id =  !!TUTAJ DODAĆ POBIERANIE ID OBECNIE ZALOGOWANEGO USER'A
   try {
     await sql`INSERT INTO reports (topic, hd_number, create_date, category, text, user_id, status)
-    VALUES(${topic}, ${hd_number}, ${date}, ${category}, ${text}, ${text}, ${user_id})`;
+    VALUES(${topic}, ${hd_number}, ${date}, ${category}, ${status}, ${text}, ${user_id})`;
   } catch (err) {
     return {
       message: "Failed to create report.",

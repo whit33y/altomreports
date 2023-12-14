@@ -8,7 +8,7 @@ export default function Form({
 }: {
   categories: CategoriesTable[];
 }) {
-  const initialState = { message: null, errors: {} };
+  const initialState = {};
   const [state, dispatch] = useFormState(createReport, initialState);
   return (
     <form action={dispatch}>
@@ -19,6 +19,7 @@ export default function Form({
         name="topic"
         placeholder="Podaj temat"
       ></input>
+
       <label htmlFor="hd_number">HD Number</label>
       <input
         type="text"
